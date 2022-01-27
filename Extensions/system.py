@@ -6,6 +6,7 @@ from gamedata.scripts.users import User
 from gamedata.configs.items.associate_type import associate
 from gamedata.scripts.item import get_info_for_tpl
 
+
 class SystemCog(commands.Cog):
     def __init__(self, bot: commands.Bot):
         self.bot = bot

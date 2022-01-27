@@ -1,0 +1,13 @@
+{
+    "info": {
+        "id": 0,
+        "nickname": ""
+    },
+    "health": {
+        "current": 1000,
+        "maximum": 1000
+    },
+    "inventory" : [
+
+    ]
+}

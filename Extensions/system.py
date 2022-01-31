@@ -2,9 +2,10 @@ import json
 import os
 import discord.ext.commands
 from discord.ext import commands
-from gamedata.scripts.users import User
-from gamedata.configs.items.associate_type import associate
-from gamedata.scripts.item import get_info_for_tpl
+from files.scripts.users import User
+from files.configs.items.associate_type import associate
+from files.scripts.item import get_info_for_tpl
+from files.scripts.decorators import get_db_for_commands_db, benchmark, rp_command
 
 
 class SystemCog(commands.Cog):
@@ -32,6 +33,7 @@ class SystemCog(commands.Cog):
             return
         data = get_info_for_tpl(user.json["inventory"][n]["tpl"])
         await ctx.send(f'{data["name"]}\n{data["description"]}')
+
     @commands.command()
     async def inv(self, ctx: discord.ext.commands.context.Context, *args):
         user = User(ctx.author.id)
@@ -49,25 +51,24 @@ class SystemCog(commands.Cog):
 
             await ctx.send(text)
 
-
-
     @commands.command()
+    @rp_command
     async def stats(self, ctx: discord.ext.commands.context.Context, *args):
         user = User(ctx.author.id)
-        if len(ctx.message.mentions):
-            user = User(ctx.message.mentions[0].id)
+        # print("command", self, ctx, args, user, sep='\n')
         if "-j" in args:
             await ctx.send(user.json)
             return
-        await ctx.send(f"""id: {user["info"]["id"]}\nhealth: {user["health"]["current"]}/{user["health"]["maximum"]}""")
+        await ctx.send(f"""id: {user["id"]}\nhealth: {user["health"]["current"]}/{user["health"]["maximum"]}""")
 
     @commands.command()
-    async def new(self, ctx: discord.ext.commands.context.Context):
+    @get_db_for_commands_db("users")
+    async def new(self, ctx: discord.ext.commands.context.Context, db=None, *args):
         new_user_json = json.load(open(str(os.getcwd()) + f"\\server\\profile_mask.json"))
-        new_user_json["info"]["id"] = ctx.author.id
-        new_user_json["info"]["nickname"] = ctx.author.nick
-        json.dump(new_user_json, open(str(os.getcwd()) + f"\\server\\profiles\\{ctx.author.id}.json", "w"))
-        await ctx.send(new_user_json)
+        new_user_json["id"] = ctx.author.id
+        new_user_json["nickname"] = ctx.author.nick
+        res = db.insert_one(new_user_json)
+        await ctx.send(str(res)+str(new_user_json))
 
 
 def setup(bot):

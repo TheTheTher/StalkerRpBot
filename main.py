@@ -22,7 +22,7 @@ async def on_ready(): print("бот запущен и готов к работе
 
 @bot.command()
 async def logout(ctx):
-    await ctx.send(f"{ctx.message.author.mention} я уми....")
+    await ctx.send(f"отключение бота")
     await bot.logout()
 
 

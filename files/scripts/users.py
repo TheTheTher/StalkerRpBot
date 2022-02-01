@@ -2,6 +2,7 @@ import json
 import os
 import pymongo
 from bson.objectid import ObjectId
+from files.scripts import items
 
 
 class User:
@@ -17,6 +18,11 @@ class User:
 
     def update(self, key, value):
         self.collection.update_one({"id": self.id}, {'$set': {key: value}})
+
+    def add_to_inventory_stackable(self, tpl):
+        if not items.get_info_for_tpl(tpl)["stackable"]:
+            return
+        # if len(list(filter()))
 
     def add_to_inventory(self, item):
         self.collection.update_one({"id": self.id}, {'$push': {"inventory": item}})

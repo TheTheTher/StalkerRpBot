@@ -1,10 +1,10 @@
 {
     "name": "АК103",
+    "stackable": false,
     "description": "Автомат Калашникова \"сотой\" серии",
     "type": "weapon",
     "parameters" :{
 
     },
-
     "cost": 1000
 }

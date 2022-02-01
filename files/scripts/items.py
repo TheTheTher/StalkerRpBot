@@ -24,9 +24,9 @@ class Item:
     def __getitem__(self, item):
         return self.get_data()[item]
     
-    item_mask = {
+item_mask = {
         "tpl": "",
         "modules": {},
         "parameters":{},
-    }
+  }
     

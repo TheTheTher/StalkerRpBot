@@ -4,6 +4,9 @@
     "description": "Автомат Калашникова \"сотой\" серии",
     "type": "weapon",
     "parameters" :{
+        "ammo": ["7.62x39_fmg"],
+        "weight": 3.6
+        
 
     },
     "cost": 1000

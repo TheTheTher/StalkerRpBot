@@ -1,0 +1,17 @@
+{
+    "id": 0,
+    "nickname": "",
+
+    "health": {
+        "psi_current": 0,
+        "psi_maximum": 0,
+        "current": 100,
+        "maximum": 100
+    },
+    "inventory": [
+    ],
+    "skills": {
+    },
+    "states": {
+    }
+}
